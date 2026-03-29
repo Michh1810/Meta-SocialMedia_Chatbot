@@ -13,7 +13,10 @@ async function initDatabase() {
   if (initPromise) return initPromise;
   
   initPromise = (async () => {
-    SQL = await initSqlJs();
+    SQL = await initSqlJs({
+      // Explicitly locate the wasm file for Vercel environment
+      locateFile: file => path.join(process.cwd(), 'node_modules', 'sql.js', 'dist', file)
+    });
 
     // Load existing database or create new one
     if (fs.existsSync(DB_PATH)) {
