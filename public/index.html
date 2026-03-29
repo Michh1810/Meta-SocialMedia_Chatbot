@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Auto-Reply — Fanpage Manager</title>
+  <meta name="description" content="Công cụ tự động trả lời tin nhắn AI cho Messenger, Instagram và TikTok Fanpage">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon">🤖</span>
+        <span class="logo-text">AutoReply<span class="logo-ai">AI</span></span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-page="dashboard" id="nav-dashboard">
+        <span class="nav-icon">📊</span>
+        <span class="nav-label">Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" data-page="messages" id="nav-messages">
+        <span class="nav-icon">💬</span>
+        <span class="nav-label">Tin nhắn</span>
+      </a>
+      <a href="#" class="nav-item" data-page="conversations" id="nav-conversations">
+        <span class="nav-icon">📋</span>
+        <span class="nav-label">Hội thoại</span>
+      </a>
+      <a href="#" class="nav-item" data-page="test" id="nav-test">
+        <span class="nav-icon">🧪</span>
+        <span class="nav-label">Test AI</span>
+      </a>
+      <a href="#" class="nav-item" data-page="settings" id="nav-settings">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-label">Cài đặt</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="status-indicator">
+        <span class="status-dot"></span>
+        <span class="status-text">Đang hoạt động</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Mobile Toggle -->
+  <button class="sidebar-toggle" id="sidebar-toggle">☰</button>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Header -->
+    <header class="main-header">
+      <div class="header-left">
+        <h1 class="page-title" id="page-title">Dashboard</h1>
+        <p class="page-subtitle" id="page-subtitle">Tổng quan hoạt động auto-reply</p>
+      </div>
+      <div class="header-right">
+        <div class="auto-reply-toggle">
+          <span class="toggle-label">Auto-Reply</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="global-auto-reply" checked>
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dashboard Page -->
+    <section class="page active" id="page-dashboard">
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card stat-total">
+          <div class="stat-icon">💬</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-total-messages">0</div>
+            <div class="stat-label">Tổng tin nhắn</div>
+          </div>
+        </div>
+        <div class="stat-card stat-today">
+          <div class="stat-icon">📅</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-today-messages">0</div>
+            <div class="stat-label">Hôm nay</div>
+          </div>
+        </div>
+        <div class="stat-card stat-conversations">
+          <div class="stat-icon">👥</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-total-conversations">0</div>
+            <div class="stat-label">Hội thoại</div>
+          </div>
+        </div>
+        <div class="stat-card stat-ai">
+          <div class="stat-icon">🤖</div>
+          <div class="stat-info">
+            <div class="stat-value" id="stat-ai-status">ON</div>
+            <div class="stat-label">AI Auto-Reply</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Platform Cards -->
+      <h2 class="section-title">Nền tảng kết nối</h2>
+      <div class="platform-grid">
+        <div class="platform-card messenger">
+          <div class="platform-header">
+            <span class="platform-icon">💙</span>
+            <h3>Messenger</h3>
+          </div>
+          <div class="platform-stats">
+            <span class="platform-count" id="platform-messenger-count">0</span>
+            <span class="platform-label">tin nhắn</span>
+          </div>
+          <div class="platform-status">
+            <span class="status-badge status-ready">Sẵn sàng</span>
+          </div>
+        </div>
+
+        <div class="platform-card instagram">
+          <div class="platform-header">
+            <span class="platform-icon">💜</span>
+            <h3>Instagram</h3>
+          </div>
+          <div class="platform-stats">
+            <span class="platform-count" id="platform-instagram-count">0</span>
+            <span class="platform-label">tin nhắn</span>
+          </div>
+          <div class="platform-status">
+            <span class="status-badge status-ready">Sẵn sàng</span>
+          </div>
+        </div>
+
+        <div class="platform-card tiktok">
+          <div class="platform-header">
+            <span class="platform-icon">🖤</span>
+            <h3>TikTok</h3>
+          </div>
+          <div class="platform-stats">
+            <span class="platform-count" id="platform-tiktok-count">0</span>
+            <span class="platform-label">tin nhắn</span>
+          </div>
+          <div class="platform-status">
+            <span class="status-badge status-ready">Sẵn sàng</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <h2 class="section-title">Hoạt động gần đây</h2>
+      <div class="messages-table-wrapper">
+        <table class="messages-table" id="recent-messages-table">
+          <thead>
+            <tr>
+              <th>Nền tảng</th>
+              <th>Người gửi</th>
+              <th>Tin nhắn</th>
+              <th>Phản hồi AI</th>
+              <th>Thời gian</th>
+            </tr>
+          </thead>
+          <tbody id="recent-messages-body">
+            <tr class="empty-row">
+              <td colspan="5">Chưa có tin nhắn nào. Hãy kết nối fanpage để bắt đầu!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Messages Page -->
+    <section class="page" id="page-messages">
+      <div class="messages-table-wrapper">
+        <div class="table-header">
+          <h2>Tất cả tin nhắn</h2>
+          <button class="btn btn-secondary" id="refresh-messages">🔄 Làm mới</button>
+        </div>
+        <table class="messages-table">
+          <thead>
+            <tr>
+              <th>Nền tảng</th>
+              <th>Hướng</th>
+              <th>Người gửi</th>
+              <th>Nội dung</th>
+              <th>Phản hồi</th>
+              <th>Thời gian</th>
+            </tr>
+          </thead>
+          <tbody id="all-messages-body">
+            <tr class="empty-row">
+              <td colspan="6">Chưa có tin nhắn</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Conversations Page -->
+    <section class="page" id="page-conversations">
+      <div class="conversations-list" id="conversations-list">
+        <div class="empty-state">
+          <span class="empty-icon">📭</span>
+          <p>Chưa có hội thoại nào</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Test AI Page -->
+    <section class="page" id="page-test">
+      <div class="test-container">
+        <div class="test-card">
+          <h2>🧪 Test AI Auto-Reply</h2>
+          <p class="test-desc">Kiểm tra phản hồi AI trước khi triển khai cho fanpage</p>
+
+          <div class="test-form">
+            <div class="form-group">
+              <label for="test-platform">Nền tảng</label>
+              <select id="test-platform" class="form-select">
+                <option value="messenger">💙 Messenger</option>
+                <option value="instagram">💜 Instagram</option>
+                <option value="tiktok">🖤 TikTok</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="test-message">Tin nhắn test</label>
+              <textarea id="test-message" class="form-textarea" rows="3" placeholder="Nhập tin nhắn để test AI reply..."></textarea>
+            </div>
+            <button class="btn btn-primary" id="test-send">🚀 Gửi test</button>
+          </div>
+
+          <div class="test-result" id="test-result" style="display:none;">
+            <h3>Phản hồi AI:</h3>
+            <div class="test-reply" id="test-reply"></div>
+          </div>
+        </div>
+
+        <!-- Chat Simulator -->
+        <div class="chat-simulator">
+          <div class="chat-header">
+            <span>💬 Mô phỏng hội thoại</span>
+          </div>
+          <div class="chat-messages" id="chat-messages"></div>
+          <div class="chat-input-area">
+            <input type="text" class="chat-input" id="chat-input" placeholder="Nhập tin nhắn...">
+            <button class="btn btn-primary chat-send" id="chat-send">Gửi</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings Page -->
+    <section class="page" id="page-settings">
+      <div class="settings-container">
+        <!-- AI Settings -->
+        <div class="settings-card">
+          <h2>🤖 Cài đặt AI</h2>
+          <div class="form-group">
+            <label for="setting-ai-provider">AI Provider</label>
+            <select id="setting-ai-provider" class="form-select">
+              <option value="openai">OpenAI (GPT)</option>
+              <option value="gemini">Google Gemini</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="setting-ai-prompt">System Prompt</label>
+            <textarea id="setting-ai-prompt" class="form-textarea" rows="4" placeholder="Nhập system prompt cho AI..."></textarea>
+          </div>
+        </div>
+
+        <!-- Platform Toggles -->
+        <div class="settings-card">
+          <h2>📡 Nền tảng</h2>
+          <div class="toggle-group">
+            <div class="toggle-row">
+              <span>💙 Messenger Auto-Reply</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-messenger-enabled" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <span>💜 Instagram Auto-Reply</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-instagram-enabled" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <span>🖤 TikTok Auto-Reply</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="setting-tiktok-enabled" checked>
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Webhook Info -->
+        <div class="settings-card">
+          <h2>🔗 Webhook URLs</h2>
+          <p class="settings-desc">Sử dụng các URL sau để cấu hình webhook trên từng nền tảng. Dùng <a href="https://ngrok.com" target="_blank">ngrok</a> để expose localhost.</p>
+          <div class="webhook-list">
+            <div class="webhook-item">
+              <span class="webhook-label">Messenger:</span>
+              <code class="webhook-url" id="webhook-messenger">/webhook/messenger</code>
+              <button class="btn btn-sm btn-copy" data-copy="webhook-messenger">📋</button>
+            </div>
+            <div class="webhook-item">
+              <span class="webhook-label">Instagram:</span>
+              <code class="webhook-url" id="webhook-instagram">/webhook/instagram</code>
+              <button class="btn btn-sm btn-copy" data-copy="webhook-instagram">📋</button>
+            </div>
+            <div class="webhook-item">
+              <span class="webhook-label">TikTok:</span>
+              <code class="webhook-url" id="webhook-tiktok">/webhook/tiktok</code>
+              <button class="btn btn-sm btn-copy" data-copy="webhook-tiktok">📋</button>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary btn-save" id="save-settings">💾 Lưu cài đặt</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
