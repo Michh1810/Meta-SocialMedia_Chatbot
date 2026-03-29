@@ -2,23 +2,32 @@ const initSqlJs = require('sql.js');
 const fs = require('fs');
 const path = require('path');
 
-const DB_PATH = path.join(__dirname, '..', 'data.db');
+const isVercel = process.env.VERCEL === '1';
+const DB_PATH = isVercel ? path.join('/tmp', 'data.db') : path.join(__dirname, '..', 'data.db');
+
 let db = null;
 let SQL = null;
+let initPromise = null;
 
 async function initDatabase() {
-  SQL = await initSqlJs();
+  if (initPromise) return initPromise;
+  
+  initPromise = (async () => {
+    SQL = await initSqlJs();
 
-  // Load existing database or create new one
-  if (fs.existsSync(DB_PATH)) {
-    const buffer = fs.readFileSync(DB_PATH);
-    db = new SQL.Database(buffer);
-  } else {
-    db = new SQL.Database();
-  }
+    // Load existing database or create new one
+    if (fs.existsSync(DB_PATH)) {
+      const buffer = fs.readFileSync(DB_PATH);
+      db = new SQL.Database(buffer);
+    } else {
+      db = new SQL.Database();
+    }
 
-  initTables();
-  return db;
+    initTables();
+    return db;
+  })();
+
+  return initPromise;
 }
 
 function getDb() {

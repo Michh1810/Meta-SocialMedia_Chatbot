@@ -14,6 +14,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Ensure database is initialized before handling requests (for Vercel)
+app.use(async (req, res, next) => {
+  try {
+    await db.initDatabase();
+    next();
+  } catch (error) {
+    console.error('Database initialization failed:', error);
+    res.status(500).json({ error: 'Database initialization failed' });
+  }
+});
+
 // ==========================================
 // API Routes
 // ==========================================
@@ -152,3 +163,5 @@ start().catch(err => {
   console.error('Failed to start server:', err);
   process.exit(1);
 });
+
+module.exports = app;
