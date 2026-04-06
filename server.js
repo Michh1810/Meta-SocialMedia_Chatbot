@@ -134,6 +134,10 @@ app.post('/webhook/tiktok', tiktok.handleWebhook);
 // ==========================================
 // Serve Frontend
 // ==========================================
+app.get('/privacy-policy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'privacy-policy.html'));
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
